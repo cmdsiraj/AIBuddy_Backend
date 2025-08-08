@@ -32,7 +32,11 @@ def create_access_token(data: dict, expires_delta: timedelta = None): # type: ig
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
-
+@auth_router.get("/")
+def work():
+    return {
+        "Message": "Can reach auth"
+    }
 
 @auth_router.post("/signup", response_model=schemas.UserOut)
 def signup(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
